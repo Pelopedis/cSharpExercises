@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SchoolTracker
@@ -13,26 +13,37 @@ namespace SchoolTracker
 
             while (adding)
             {
-                var newStudent = new Student();
+                try
+                {
+                    var newStudent = new Student();
 
-                newStudent.Name = Util.Console.Ask("Student Name: ");
-                
-                newStudent.Grade = int.Parse(Util.Console.Ask("Student Grade: "));
+                    newStudent.Name = Util.Console.Ask("Student Name: ");
 
-                newStudent.Birthday = Util.Console.Ask("Student Birthday: ");
+                    newStudent.Grade = Util.Console.AskInt("Student Grade: ");
 
-                newStudent.Address = Util.Console.Ask("Student Address: ");
+                    newStudent.Birthday = Util.Console.Ask("Student Birthday: ");
 
-                newStudent.Phone = int.Parse(Util.Console.Ask("Student Phone Number: "));
+                    newStudent.Address = Util.Console.Ask("Student Address: ");
 
-                students.Add(newStudent);
-                Student.Count++;
-                Console.WriteLine("Student Count: {0}", Student.Count);
+                    newStudent.Phone = Util.Console.AskInt("Student Phone Number: ");
 
-                Console.WriteLine("Add another? y/n");
+                    students.Add(newStudent);
+                    Student.Count++;
+                    Console.WriteLine("Student Count: {0}", Student.Count);
 
-                if (Console.ReadLine() != "y")
-                    adding = false;
+                    Console.WriteLine("Add another? y/n");
+
+                    if (Console.ReadLine() != "y")
+                        adding = false;
+                }
+                catch (FormatException msg)
+                {
+                    Console.WriteLine(msg.Message);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Error adding student, Please try again");
+                }
             }
 
             foreach (var student in students)
@@ -48,15 +59,24 @@ namespace SchoolTracker
         }
     }
 
-    class Student
+    class Member
+    {
+        public string Name;
+        public string Address;
+        protected int phone;
+
+        public int Phone
+        {
+            set { phone = value; }
+        }
+    }
+
+    class Student : Member
     {
         static public int Count = 0;
 
-        public string Name;
         public int Grade;
         public string Birthday;
-        public string Address;
-        private int phone;
 
         public Student()
         {
@@ -71,15 +91,10 @@ namespace SchoolTracker
             Address = address;
             Phone = phone;
         }
+    }
 
-        public int Phone
-        {
-            set { phone = value; }
-        }
-
-        public void SetPhone(int number)
-        {
-            phone = number;
-        }
+    class Teacher : Member
+    {
+        public string Subject;
     }
 }
