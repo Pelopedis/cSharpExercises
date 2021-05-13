@@ -1,23 +1,23 @@
 using System;
 
-namespace survey_challenge1
+namespace Survey
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("'Learning C# Challenge 1: Simple Survey'\n\nWhat is your Name? ");
+            Console.WriteLine("What is your name?");
             var name = Console.ReadLine();
 
-            Console.WriteLine("How old are you? ");
+            Console.WriteLine("What is your age?");
             var age = Console.ReadLine();
 
-
-            Console.WriteLine("What month were you born in? ");
+            Console.WriteLine("What month were you born in?");
             var month = Console.ReadLine();
 
-            var results = "Ypur name is " + name + ", you are " + age + " years old and you were born in " + month;
-            Console.WriteLine(results);
+            Console.WriteLine("Your name is: {0}", name);
+            Console.WriteLine("Your age is: {0}", age);
+            Console.WriteLine("Your birth month is: {0}", month);
         }
     }
 }
